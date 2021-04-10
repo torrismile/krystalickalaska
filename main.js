@@ -76,17 +76,13 @@ function showMessage(username) {
 }
 
 //Show input error message
-function showError(input, message) {
-    const formControl = input.parentElement;
-    formControl.className = 'section-reservation__form--form-control error';
-    const small = formControl.querySelector('small');
-    small.innerText = message;
+function showError(input) {
+    input.style.border = "3px solid #f55"
 }
 
-//Show success outline
+// Show success outline
 function showSuccess(input) {
-    const formControl = input.parentElement;
-    formControl.className = 'section-reservation__form--form-control success';
+    input.style.border = "3px solid #00c400"
 }
 
 //Check email is valid
@@ -97,7 +93,7 @@ function checkEmail(input) {
         showSuccess(input);
     } else {
         isError = true;
-        showError(input, 'Email není platný');
+        showError(input);
     }
     return isError;
 }
@@ -107,7 +103,7 @@ function checkRequired(inputArr) {
     let isError = false;
     inputArr.forEach(function (input) {
         if (input.value.trim() === '') {
-            showError(input, `${getFieldName(input)} is required`);
+            showError(input);
             isError = true;
         } else {
             showSuccess(input);
@@ -120,9 +116,9 @@ function checkRequired(inputArr) {
 function checkLengthLetter(input, min, max) {
     let isError = true;
     if (input.value.length < min) {
-        showError(input, `${getFieldName(input)} musí mít alespon ${min} písmen`);
+        showError(input);
     } else if (input.value.length > max) {
-        showError(input, `${getFieldName(input)} musí mít menší ${max} písmen`);
+        showError(input);
     } else {
         isError = false;
         showSuccess(input);
@@ -130,23 +126,10 @@ function checkLengthLetter(input, min, max) {
     return isError;
 }
 
-function checkLengthNumber(input, min, max) {
-    let isError = true;
-    if (input.value.length < min) {
-        showError(input, `${getFieldName(input)} musí mít alespon ${min} čisel`);
-    } else if (input.value.length > max) {
-        showError(input, `${getFieldName(input)} musí mít menší ${max} čisel`);
-    } else {
-        isError = false;
-        showSuccess(input);
-    }
-    return isError;
-}
 //Get fieldname
 function getFieldName(input) {
     return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
-
 
 function setReservationSubmit() {
     document.getElementById('jmeno').addEventListener('focusout', (event) => {
@@ -155,25 +138,19 @@ function setReservationSubmit() {
     document.getElementById('email').addEventListener('focusout', (event) => {
         checkEmail(event.target);
     });;
-    document.getElementById('telefon').addEventListener('focusout', (event) => {
-        checkLengthNumber(event.target, 9, 16);
-    });;
 
     //Event listener
     document.querySelector("#reservation-submit").addEventListener('click', function (e) {
         e.preventDefault();
         let username = document.querySelector('#jmeno');
-        let telephone = document.querySelector('#telefon');
         let email = document.querySelector('#email');
 
-        let formError = checkRequired([username, telephone]);
+        let formError = checkRequired([username, email]);
 
         let userNameError = checkLengthLetter(username, 3, 25);
-        let telephoneError = checkLengthNumber(telephone, 9, 16);
         let emailError = checkEmail(email);
         let formJson = convertJson();
-        // formJson["image_url"] = window.localStorage.getItem("image_url");
-        if (!(formError || userNameError || telephoneError || emailError)) {
+        if (!(formError || userNameError || emailError)) {
             sentMessage(formJson);
             showMessage(username.value);
         }
