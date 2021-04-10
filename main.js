@@ -1,6 +1,5 @@
 
 function sentMessage(message) {
-    debugger;
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -58,7 +57,6 @@ async function getReservations() {
 function convertJson() {
     let formElement = document.getElementById('formJson');
     let formData = new FormData(formElement);
-    debugger;
 
     let object = {};
     formData.forEach(function (value, key) {
@@ -182,62 +180,3 @@ function setReservationSubmit() {
     });
 }
 
-const images = document.querySelectorAll('.owl-carousel img');
-const modal = document.querySelector('.modal');
-const modalImg = document.querySelector('.modalImg');
-const modalTxt = document.querySelector('.modalTxt');
-const close = document.querySelector('.close');
-const nextBtnCurrent = document.querySelector('#nextBtnCurrent');
-const prevBtnCurrent = document.querySelector('#prevBtnCurrent');
-const nextBtnReserved = document.querySelector('#nextBtnReserved');
-const prevBtnReserved = document.querySelector('#prevBtnReserved');
-let index = 0;
-
-images.forEach((image, index) => {
-    image.addEventListener('click', () => {
-        index = parseInt(image.alt);
-        modalImg.src = image.src;
-        modalTxt.innerHTML = "Pokud se vám líbí, napište mi";
-        modal.classList.add('appear');
-
-        close.addEventListener('click', () => {
-            modal.classList.remove('appear');
-        })
-
-        nextBtnCurrent.addEventListener('click', () => {
-            index = index + 1;
-            images.forEach((image) => {
-                if(parseInt(image.alt) === index){
-                    modalImg.src = image.src;
-                }
-            })
-        })
-
-        prevBtnCurrent.addEventListener('click', () => {
-            index = index - 1;
-            images.forEach((image) => {
-                if(parseInt(image.alt) === index){
-                    modalImg.src = image.src;
-                }
-            })
-        })
-
-        nextBtnReserved.addEventListener('click', () => {
-            index = index + 1;
-            images.forEach((image) => {
-                if(parseInt(image.alt) === index){
-                    modalImg.src = image.src;
-                }
-            })
-        })
-
-        prevBtnReserved.addEventListener('click', () => {
-            index = index - 1;
-            images.forEach((image) => {
-                if(parseInt(image.alt) === index){
-                    modalImg.src = image.src;
-                }
-            })
-        })
-    });
-});

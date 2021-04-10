@@ -1,8 +1,49 @@
-
 var imgArray = [];
 var images;
-  
+let activeGalleryId;
+let activeImageSource;
+let index = 0;
+
+let imagesCurent;
+let modalCurent;
+let modalImgCurrent;
+let modalTxtCurrent;
+let closeCurrent;
+let nextBtnCurrent;
+let prevBtnCurrent;
+
+function showModal() {
+  $(modalImgCurrent).attr('src', activeImageSource);
+  $(modalTxtCurrent).html("Pokud se vám líbí, napište mi");
+  modalCurent.addClass('appear');
+}
+
+function closeModal() {
+  $(modalCurrent).removeClass('appear');
+}
+
+function updateImg() {
+  let actualImage = $('#' + activeGalleryId + ' img')[index];
+  activeImageSource = $(actualImage).attr('src')
+  $(modalImgCurrent).attr('src', activeImageSource);
+  // $('#' + activeGalleryId + ' img').each((ind, image) => {
+  //   if (parseInt($(image).attr('alt')) === index) {
+  //     activeImageSource = $(image).attr('src')
+  //     $(modalImgCurrent).attr('src', activeImageSource);
+  //   }
+  // })
+}
+
 $(document).ready(function () {
+
+  imagesCurent = $('.current .item-current img');
+  modalCurent = $('#modalCurrent');
+  modalImgCurrent = $('#modalImgCurrent');
+  modalTxtCurrent = $('#modalTxtCurrent');
+  closeCurrent = $('#closeCurrent');
+  nextBtnCurrent = $('#nextBtnCurrent');
+  prevBtnCurrent = $('#prevBtnCurrent');
+  index = 0;
 
   $(function () {
     $('a[href*="#"]')
@@ -66,34 +107,71 @@ $(document).ready(function () {
     }
   });
 
+  $(nextBtnCurrent).on('click', () => {
+    maxIndex = $('#' + activeGalleryId + ' img').length - 1;
+    index = index + 1;
+    if (index > maxIndex) {
+      index = maxIndex;
+    }
+    updateImg();
+  })
+
+  $(closeCurrent).on('click', () => {
+    closeModal();
+  })
+
+  $(prevBtnCurrent).on('click', () => {
+    index = index - 1;
+    if (index < 0) {
+      index = 0;
+    }
+    updateImg();
+  })
+
   $('.contactBtn').click(function () {
+    var src = activeImageSource.split('/');
+    var file = src[src.length - 1];
+    var imagePath = 'http://krystalickalaska.cz/img/' + file;
+    imgArray.push(imagePath);
+    let imgIndex = imgArray.length - 1;
+    var imgArrayString = JSON.stringify(imgArray);
+
+    $('.images_urls').attr('value', imgArrayString)
+    let newImage = $(`<div class="image-form-container"><span class="btn-close-form"><i class="fa fa-times"></i></span> <img class="image" id="image" src=${activeImageSource} index=${index} alt="Your order"></div>`)
+    $('.images_show_urls').append(newImage);
+    let btnClose = newImage.find(".btn-close-form")
+    btnClose.click(function () {
+
+      imgArray.splice(imgIndex, 1);
+      var imgArrayString = JSON.stringify(imgArray);
+      $('.images_urls').attr('value', imgArrayString)
+      newImage.remove();
+    });
     $('.close').click();
   })
 
-  images = $('.grid img');
+  let currentImages = $('#gallery_current img');
+  let reservedImages = $('#gallery_reserved img');
 
+  function addEventToImage(elem, galleryId, imageInd) {
 
-  images.each(function () {
-    $(this).click(function () {
-
-      var src = $(this).attr('src').split('/');
-      var file = src[src.length - 1];
-      var imagePath = 'http://krystalickalaska.cz/img/' + file;
-      imgArray.push(imagePath);
-      let imgIndex = imgArray.length - 1;
-      var imgArrayString = JSON.stringify(imgArray);
-
-      $('.images_urls').attr('value', imgArrayString)
-      let newImage = $(`<div class="image-form-container"><span class="btn-close-form"><i class="fa fa-times"></i></span> <img class="image" id="image" src=${$(this).attr('src')} index=${$(this).attr('imgIndex')} alt="Your order"></div>`)
-      $('.images_show_urls').append(newImage);
-      let btnClose = newImage.find(".btn-close-form")
-      btnClose.click(function(){
-        
-        imgArray.splice(imgIndex, 1);
-        var imgArrayString = JSON.stringify(imgArray);
-        $('.images_urls').attr('value', imgArrayString)
-        newImage.remove();
-      });
+    $(elem).click(function () {
+      activeGalleryId = galleryId;
+      index = imageInd;
+      activeImageSource = $(this).attr('src');
+      showModal();
     })
-  })
+  }
+
+  function addEventToCurrentGalleryImage(ind, elem) {
+    addEventToImage(elem, 'gallery_current', ind);
+  }
+
+  function addEventToReservedGalleryImage(ind, elem) {
+    addEventToImage(elem, 'gallery_reserved', ind);
+  }
+
+
+  currentImages.each(addEventToCurrentGalleryImage);
+  reservedImages.each(addEventToReservedGalleryImage);
 })
