@@ -157,58 +157,12 @@ p {
     padding: 0 5%;
     width: 80%;
     position: relative;
-}
-  
-  /* fix blank or flashing items on carousel */
-.owl-carousel .item {
-    position: relative;
-    z-index: 100; 
-    -webkit-backface-visibility: hidden; 
-}
-
-  /* end fix */
-.owl-nav > div {
-    margin-top: -26px;
-    position: absolute;
-    top: 50%;
-    color: #cdcbcd;
-}
-  
-.owl-nav i {
-    font-size: 52px;
-}
-  
-.owl-nav .owl-prev {
-    outline: none;
-    position: absolute;
-    left: -2rem;
-    top: 20rem;
-}
-  
-.owl-nav .owl-next {
-    outline: none;
-    position: absolute;
-    right: -2rem;
-    top: 20rem;
-}
-
-/*MODAL GALERIE*/
-
-.carousel-wrap {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-.owl-carousel img {
-    width: 100%;
-    cursor: pointer;
-    transition:  0.3s all ease;
-}
-
-.owl-carousel img:hover {
-    transform: scale(0.9);
-}
+  
+/*MODAL GALERIE*/
 
 .modal-none {
     display: none;
@@ -576,17 +530,6 @@ footer p {
 }
 
 @media only screen and (min-width: 1024px) and (max-width: 1200px) {
-    .owl-nav .owl-prev {
-        position: absolute;
-        left: -2rem;
-        top: 10rem;
-    }
-      
-    .owl-nav .owl-next {
-        position: absolute;
-        right: -2rem;
-        top: 10rem;
-    }
 
     .modal-test {
         height: 48vh;
@@ -659,18 +602,6 @@ footer p {
         padding-bottom: 3.5rem;
     }
 
-    .owl-nav .owl-prev {
-        position: absolute;
-        left: -2rem;
-        top: 13rem;
-    }
-      
-    .owl-nav .owl-next {
-        position: absolute;
-        right: -2rem;
-        top: 13rem;
-    }
-
     .wrapper {
         margin: 50px auto 0;
     }
@@ -729,11 +660,16 @@ footer p {
         right: 5%;
     }
 
-    .modalNav-1,
-    .modalNav-2  {
+    .modalNav-1 {
         position: absolute;
         top: 49.5%;
         right: -2.5%;
+    }
+    
+    .modalNav-2 {
+        position: absolute;
+        top: 49.5%;
+        left: -2.5%;
     }
 
     .grid {
@@ -875,18 +811,6 @@ footer p {
         padding: 0 5%;
     }
 
-    .owl-nav .owl-prev {
-        position: absolute;
-        left: -2rem;
-        top: 9rem;
-    }
-      
-    .owl-nav .owl-next {
-        position: absolute;
-        right: -2rem;
-        top: 9rem;
-    }
-
     .wrapper {
         margin: 0 auto 0;
     }
@@ -962,8 +886,7 @@ footer p {
         font-size: 300%;
     }
 
-    .modalNav-1,
-    .modalNav-2 {
+    .modalNav-1 {
         position: absolute;
         top: 45%;
         right: -5%;
@@ -996,10 +919,6 @@ footer p {
 
 @media screen and (max-width:460px) {
  
-    .owl-nav i {
-        font-size: 46px;
-    }
-
     .top-form .inner-form {
         width: 100%;
         margin: 0;
@@ -1036,17 +955,6 @@ footer p {
 
     .form input[type='text'], .form input[type='tel'], .form textarea {
         padding: 1.2rem 0.5rem;
-    }
-
-    .owl-nav .owl-next  {
-        position: absolute;
-        right: -1.6rem;
-        top: 11rem;
-    }
-    .owl-nav .owl-prev {
-        position: absolute;
-        left: -1.6rem;
-        top: 11rem;
     }
 
     .modal-test {
@@ -1138,6 +1046,21 @@ footer p {
     display: none;
 }
 
+.carousel-wrap,
+.grid,
+.modal,
+.modal-test,
+.modalContent,
+.test,
+.test .modalTxt,
+.modalNav-1 button,
+.modalNav-2 button,
+.current .item-current,
+.reserved .item-reserved,
+.current .item-current img,
+.reserved .item-reserved img {
+    touch-action: manipulation;
+}
 
 
 

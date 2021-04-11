@@ -1,3 +1,4 @@
+document.addEventListener("touchstart", function () { }, false);
 
 function sentMessage(message) {
 
