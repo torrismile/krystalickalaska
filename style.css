@@ -146,6 +146,11 @@ p {
     padding-right: 5rem;
 }
 
+.text-box p {
+    font-size: 190%;
+    line-height: 2.5rem;
+}
+
 /*AVAILABLE SECTION*/
 
 .available-section {
@@ -588,6 +593,11 @@ footer p {
         position: absolute;
         top: 8%;
         right: 5%;
+    }
+    
+    .text-box p {
+        font-size: 170%;
+        line-height: 2.5rem;
     }
 }
 

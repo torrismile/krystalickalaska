@@ -1,5 +1,5 @@
-var imgArray = [];
-var images;
+let imgArray = [];
+let images;
 let activeGalleryId;
 let activeImageSource;
 let index = 0;
@@ -58,7 +58,7 @@ $(document).ready(function () {
           location.hostname == this.hostname
         ) {
           // Figure out element to scroll to
-          var target = $(this.hash);
+          let target = $(this.hash);
           target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
           // Does a scroll target exist?
           if (target.length) {
@@ -96,7 +96,7 @@ $(document).ready(function () {
       $('#js-navbar-toggle').click();
     })
 
-    var icon = $('.navbar-toggle i');
+    let icon = $('.navbar-toggle i');
     if (icon.hasClass('fa fa-bars')) {
       icon.addClass('fas fa-times');
       icon.removeClass('fas fa-bars')
@@ -129,12 +129,12 @@ $(document).ready(function () {
   })
 
   $('.contactBtn').click(function () {
-    var src = activeImageSource.split('/');
-    var file = src[src.length - 1];
-    var imagePath = 'http://krystalickalaska.cz/img/' + file;
+    let src = activeImageSource.split('/');
+    let file = src[src.length - 1];
+    let imagePath = 'http://krystalickalaska.cz/img/' + file;
     imgArray.push(imagePath);
     let imgIndex = imgArray.length - 1;
-    var imgArrayString = JSON.stringify(imgArray);
+    let imgArrayString = JSON.stringify(imgArray);
 
     $('.images_urls').attr('value', imgArrayString)
     let newImage = $(`<div class="image-form-container"><span class="btn-close-form"><i class="fa fa-times"></i></span> <img class="image" id="image" src=${activeImageSource} index=${index} alt="Your order"></div>`)
@@ -143,7 +143,7 @@ $(document).ready(function () {
     btnClose.click(function () {
 
       imgArray.splice(imgIndex, 1);
-      var imgArrayString = JSON.stringify(imgArray);
+      let imgArrayString = JSON.stringify(imgArray);
       $('.images_urls').attr('value', imgArrayString)
       newImage.remove();
     });
